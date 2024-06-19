@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 const CountryCard =({name,flagImg,flagAltTxt})=>{
     return(
     <div style={{
@@ -13,23 +14,47 @@ const CountryCard =({name,flagImg,flagAltTxt})=>{
         width:"200px",
         height:"200px",
     }}>
-    <img src={flagImg} 
+    <img
+    src={flagImg} 
     alt={flagAltTxt}
     style={{width:"100px",height:"100px"}}/>    
     <h2>{name}</h2>
     </div>
-    )
-}
+    );
+};
 function Countries() {
     const API_URL =" https://xcountries-backend.azurewebsites.net/all";
-    const[countries,setcountries]=useState([]);
+    const [countries,setCountries]=useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     console.log({countries});
     useEffect(()=>{
         fetch(API_URL)
-        .then((res) => res.json())
-        .then((data) => setcountries(data))
-        .catch((error)=> console.error("Error: ",error));
-    },[]);
+        .then((res) => {
+            if (!res.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return res.json();
+          })
+          .then((data) => {
+            setCountries(data);
+            setLoading(false);
+          })
+          .catch((error) => {
+            console.error("Error: ", error);
+            setError(error);
+            setLoading(false);
+          });
+      }, []);
+    
+      if (loading) {
+        return <div>Loading...</div>;
+      }
+    
+      if (error) {
+        return <div>Error: {error.message}</div>;
+      }
+    
 
     return (
     <div
@@ -42,7 +67,8 @@ function Countries() {
 
     }}>
         {countries.map((country)=>(
-            <CountryCard name={country.name} 
+            <CountryCard  key={country.name}
+            name={country.name} 
             flagImg={country.flag} 
             flagAltTxt={country.abbr}/>))}
     </div>)
