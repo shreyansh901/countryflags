@@ -11,7 +11,7 @@ const CountryCard =({name,flagImg,flagAltTxt})=>{
         border:"1px solid black",
         borderRadius:"8px",
         width:"200px",
-        height:"200px"
+        height:"200px",
     }}>
     <img src={flagImg} 
     alt={flagAltTxt}
@@ -23,6 +23,7 @@ const CountryCard =({name,flagImg,flagAltTxt})=>{
 function Countries() {
     const API_URL =" https://xcountries-backend.azurewebsites.net/all";
     const[countries,setcountries]=useState([]);
+    console.log({countries});
     useEffect(()=>{
         fetch(API_URL)
         .then((res) => res.json())
@@ -30,12 +31,14 @@ function Countries() {
         .catch((error)=> console.error("Error: ",error));
     },[]);
 
-    return (<div
-    style={{display:"flex",
+    return (
+    <div
+        style={{
+        display:"flex",
         flexWrap:"wrap",
-        height:"100vh",
         alignItems:"center",
         justifyContent:"center",
+        height:"100vh",
 
     }}>
         {countries.map((country)=>(
