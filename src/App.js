@@ -1,4 +1,4 @@
-import Countries from './Countries.jsx';
+import Countries from './Components/Countries.jsx';
 import './App.css';
 
 function App() {
