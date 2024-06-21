@@ -1,6 +1,7 @@
 import React from "react";
 
-const CountryCard =({name,flagImg,flagAltTxt})=>{
+const CountryCard =({country})=>{
+    let{name,flags}=country
     return(
     <div style={{
         display:"flex",
@@ -15,10 +16,10 @@ const CountryCard =({name,flagImg,flagAltTxt})=>{
         height:"200px",
     }}>
     <img
-    src={flagImg} 
-    alt={flagAltTxt}
+    src={flags.svg} 
+    alt={name.common}
     style={{width:"100px",height:"100px"}}/>    
-    <h2>{name}</h2>
+    <h2>{name.common}</h2>
     </div>
     );
 };

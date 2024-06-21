@@ -5,7 +5,7 @@ import CountryCard from "./CountryCard";
 function Countries() {
     const [countries,setCountries]=useState([]);
     const fetchFlags = async () => {
-      let url = "https://xcountries-backend.azurewebsites.net/all";
+      let url = "https://restcountries.com/v3.1/all";
       try {
         let response = await axios(url);
         if (response.status === 200) {
@@ -35,10 +35,7 @@ function Countries() {
 
     }}>
         {countries.map((country)=>(
-            <CountryCard  key={country.name.common}
-            name={country.name} 
-            flagImg={country.flag} 
-            flagAltTxt={country.abbr}/>))}
+            <CountryCard  country={country}/>))}
     </div>)
 }
 export default Countries;
